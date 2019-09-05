@@ -1,5 +1,5 @@
-# SnakeS
-A Snake game that can be easily implemented on any .Net application 
+ # SnakeS
+A Snake game that can be easily implemented on any C# .Net application 
 
 # Installation :
 Add the Block.cs, Blocks.cs, Settings.cs and Game.cs to your project.
