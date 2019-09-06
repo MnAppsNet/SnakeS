@@ -56,7 +56,7 @@ namespace SnakeS
             panel.Width = width;
             panel.Height = height;
             panel.BackColor = color;
-            panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            panel.BorderStyle = Settings.BlockStyle;
             panel.Location = new System.Drawing.Point(x, y);
             panel.Tag = id;
         }

@@ -15,6 +15,7 @@ namespace SnakeS
         private int blockNumberY;  // Number of blocks on the Y axis
         private int width;         // Blocks width
         private int height;        // Blocks height
+        private bool wall;
         private Blocks blocks;     // Blocks list
         private Timer timer;       // Timer for the stage updates
 
@@ -23,12 +24,13 @@ namespace SnakeS
         private int xMove = 0;      // X Movement of Player
         private int yMove = 0;      // Y Movement of Player
 
-        public Game(int BlockNumberX, int BlockNumberY, int refreshRate, Control Controller)
+        public Game(int BlockNumberX, int BlockNumberY, int refreshRate, Control Controller, bool Walls = false)
         { //Constructor
             Player = new List<int[]>();
             blockNumberX = BlockNumberX;
             blockNumberY = BlockNumberY;
             controller = Controller;
+            wall = Walls;
             blocks = new Blocks();
             timer = new Timer();
             timer.Interval = refreshRate;
@@ -69,6 +71,14 @@ namespace SnakeS
                 xMove = 1;
                 yMove = 0;
             }
+        }
+        public void SpeedUp()
+        {
+            timer.Interval = timer.Interval / 2;
+        }
+        public void SpeedDown()
+        {
+            timer.Interval = timer.Interval * 2;
         }
         #endregion -----------------------------------
 
@@ -165,11 +175,21 @@ namespace SnakeS
                 tmp = blocks.Get(Player[i][0] * width, Player[i][1] * height);
                 if (tmp == null)
                 {
-                    gameOver();
-                    return;
+                    if (wall)
+                    {
+                        gameOver();
+                        return;
+                    }
+                    checkOutOrArena(i);
                 }
-                else if (tmp.Color == Settings.PlayerColor)
+                tmp = blocks.Get(Player[i][0] * width, Player[i][1] * height);
+                if (tmp.Color == Settings.PlayerColor)
                 {
+                    Player[i][0] -= Player[i][2];
+                    Player[i][1] -= Player[i][3];
+                    checkOutOrArena(i);
+                    tmp = blocks.Get(Player[i][0] * width, Player[i][1] * height);
+                    tmp.Color = Settings.CollisionColor;
                     gameOver();
                     return;
                 }
@@ -201,7 +221,13 @@ namespace SnakeS
                 Player[Player.Count - 1][3]
             }
            );
-            blocks.Get(Player[Player.Count - 1][0] * width, Player[Player.Count - 1][1] * height).Color = Settings.PlayerColor;
+            Block tmpBlock = blocks.Get(Player[Player.Count - 1][0] * width, Player[Player.Count - 1][1] * height);
+            if (tmpBlock == null)
+            {
+                checkOutOrArena(Player.Count - 1, -1);
+                tmpBlock = blocks.Get(Player[Player.Count - 1][0] * width, Player[Player.Count - 1][1] * height);
+            }
+            tmpBlock.Color = Settings.PlayerColor;
             if (blocks.Items.Exists(item => item.Color == Settings.StageColor))
             {
                 List<Block> tmp = blocks.Items.FindAll(item => item.Color == Settings.StageColor);
@@ -213,6 +239,33 @@ namespace SnakeS
                 timer.Stop();
                 MessageBox.Show(Settings.WonMessage);
                 createGame();
+            }
+        }
+        private void checkOutOrArena(int blockID , int arrow = 1) //Checks whether the block is out of arena and if it is move it on the other side
+        {
+            if (Player[blockID][0] <  0            || 
+                Player[blockID][0] >= blockNumberX || //Check if out of arena
+                Player[blockID][1] >= blockNumberY || 
+                Player[blockID][1] <  0)
+            {
+                //Put block on the other side of the arena
+                if (Player[blockID][2] == 1 * arrow)
+                {
+                    Player[blockID][0] = 0;
+                }
+                else if (Player[blockID][2] == -1 * arrow)
+                {
+                    Player[blockID][0] = blockNumberX - 1;
+                }
+                else if (Player[blockID][3] == 1 * arrow)
+                {
+                    Player[blockID][1] = 0;
+                }
+                else if (Player[blockID][3] == -1 * arrow)
+                {
+                    Player[blockID][1] = blockNumberY - 1;
+                }
+
             }
         }
         #endregion ----------------------------------------------
