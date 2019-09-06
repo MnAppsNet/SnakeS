@@ -1,4 +1,4 @@
- # SnakeS
+# SnakeS
 A Snake game that can be easily implemented on any C# .Net application 
 
 # Installation :
@@ -14,6 +14,7 @@ Initialize the game by creating an instance of Game class :
 
 # Public Methods
 * Use the public methods **MoveUp()**, **MoveDown()**, **MoveLeft()** and **MoveRight()** to move the player
+* Use the public methods **SpeedUp()** and **SpeedDown()** to change the speed of the player
 * Use the public method **Stop()** to stop the game and dispose all game controls at any time
 
 Change Settings.cs to change the look of the game
