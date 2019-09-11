@@ -8,7 +8,15 @@ namespace SnakeS
 {
     class Game
     {
+        #region ------------ Variables -------------
         private Control controller; //The controller that displays the Game
+        private Label   scoreLabel; //Label where the score will be displayed
+
+        //Events
+        public event EventHandler GameOver;
+        public event EventHandler Paused;
+        public event EventHandler Resumed;
+        public event EventHandler PowerUp;
 
         //Construction Variables :
         private int blockNumberX;  // Number of blocks on the X axis
@@ -23,21 +31,38 @@ namespace SnakeS
         private List<int[]> Player; // Player properties ( 0: X Block , 1: Y Block , 2: X Movement, 3: Y Movement )
         private int xMove = 0;      // X Movement of Player
         private int yMove = 0;      // Y Movement of Player
+        private uint score = 0;     // Player score
+        private uint score_increasement = 1;
+        private bool paused = false;
+        public uint Score
+        {
+            get { return score; }
+        }
+        public bool isPaused
+        {
+            get { return paused; }
+        }
+        #endregion -------------------------
 
-        public Game(int BlockNumberX, int BlockNumberY, int refreshRate, Control Controller, bool Walls = false)
+
+        public Game(int BlockNumberX, int BlockNumberY, int refreshRate, Control Controller, bool Walls = false, Label ScoreLabel = null)
         { //Constructor
             Player = new List<int[]>();
             blockNumberX = BlockNumberX;
             blockNumberY = BlockNumberY;
             controller = Controller;
+            scoreLabel = ScoreLabel;
+            score = 0;
             wall = Walls;
             blocks = new Blocks();
             timer = new Timer();
             timer.Interval = refreshRate;
+            score_increasement = 2000 / (uint)refreshRate;
             timer.Tick += update;
             controller.Hide();
             createGame();
         }
+
 
         #region   -------- Player Movements ----------
         public void MoveUp()
@@ -82,6 +107,7 @@ namespace SnakeS
         }
         #endregion -----------------------------------
 
+        #region   -------- Game Flow Control ---------
         public void Stop()
         {
             timer.Stop();
@@ -90,12 +116,36 @@ namespace SnakeS
             blocks.Items.Clear();
             xMove = 0;
             yMove = 0;
+            if (scoreLabel != null) scoreLabel.Text = "0";
         }
+        public void Pause()
+        {
+            if (Paused != null) Paused(this, null);
+            paused = true;
+            timer.Stop();
+        }
+        public void Resume()
+        {
+            if (Resumed != null) Resumed(this, null);
+            paused = false;
+            timer.Start();
+        }
+        public void Reset()
+        {
+            timer.Stop();
+            Player.Clear();
+            foreach (Block b in blocks.Items)
+                b.Color = Settings.StageColor;
+            xMove = 0;
+            yMove = 0;
+            if (scoreLabel != null) scoreLabel.Text = "0";
+        }
+        #endregion -------------------------------
 
         #region -------- Private Methodes ----------
         private void createGame() //Creates the Games
         {
-            Stop(); //Resets everything in case of previous game
+            Reset(); //Resets everything in case of previous game
 
             //Get blocks width and height based on controller size :
             width = controller.Width / blockNumberX;   
@@ -127,15 +177,38 @@ namespace SnakeS
                     {
                         if (j == player[1] && i == player[0])
                         {
-                            blocks.Add(Settings.PlayerColor, width, height, i * width, j * height);
+                            if (blocks.Get(i * width, j * height) != null)
+                            {
+                                blocks.Get(i * width, j * height).Color = Settings.HeadColor;
+                            }
+                            else
+                            {
+                                blocks.Add(Settings.HeadColor, width, height, i * width, j * height);
+                            }
                         }
                         else if (j == y_power && i == x_power)
                         {
-                            blocks.Add(Settings.PowerUpColor, width, height, i * width, j * height,true);
+                            if (blocks.Get(i * width, j * height) != null)
+                            {
+                                blocks.Get(i * width, j * height).Color = Settings.PowerUpColor;
+                                blocks.Get(i * width, j * height).Power = true;
+                            }
+                            else
+                            {
+                                blocks.Add(Settings.PowerUpColor, width, height, i * width, j * height, true);
+                                blocks.Get(i * width, j * height).Power = true;
+                            }
                         }
                         else
                         {
-                            blocks.Add(Settings.StageColor, width, height, i * width, j * height);
+                            if (blocks.Get(i * width, j * height) != null)
+                            {
+                                blocks.Get(i * width, j * height).Color = Settings.StageColor;
+                            }
+                            else
+                            {
+                                blocks.Add(Settings.StageColor, width, height, i * width, j * height);
+                            }
                         }
                     }
                 }
@@ -193,19 +266,23 @@ namespace SnakeS
                     gameOver();
                     return;
                 }
-                tmp.Color = Settings.PlayerColor;
-
+                if (i == 0)
+                    tmp.Color = Settings.HeadColor;
+                else
+                    tmp.Color = Settings.PlayerColor;
                 if (tmp.Power)
                 {
                     powerup = true;
                     tmp.Power = false;
                 }
-
             }
             if (powerup) powerUp();
+
+
         }
         private void gameOver()
         {
+            if (GameOver != null) GameOver(this, EventArgs.Empty);
             timer.Stop();
             MessageBox.Show(Settings.LostMessage);
             controller.Hide();
@@ -240,6 +317,13 @@ namespace SnakeS
                 MessageBox.Show(Settings.WonMessage);
                 createGame();
             }
+            //Increase score in case there is a label provided to display it
+            if (scoreLabel != null)
+            {
+                score += score_increasement;
+                scoreLabel.Text = score.ToString();
+            }
+            if (PowerUp != null) PowerUp(this, null);
         }
         private void checkOutOrArena(int blockID , int arrow = 1) //Checks whether the block is out of arena and if it is move it on the other side
         {

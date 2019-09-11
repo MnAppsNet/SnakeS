@@ -36,11 +36,23 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.options = new System.Windows.Forms.Panel();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.topMostCheckbox = new System.Windows.Forms.CheckBox();
+            this.gridCheckbox = new System.Windows.Forms.CheckBox();
+            this.wallCheckbox = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.GamePanel = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.textArt = new System.Windows.Forms.RichTextBox();
+            this.score = new System.Windows.Forms.Label();
+            this.best_score = new System.Windows.Forms.Label();
+            this.score_label = new System.Windows.Forms.Label();
+            this.bg_color_panel = new System.Windows.Forms.Panel();
+            this.player_color_panel = new System.Windows.Forms.Panel();
+            this.head_color_panel = new System.Windows.Forms.Panel();
+            this.power_color_panel = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.difficulty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -59,7 +71,9 @@
             this.difficulty.RightToLeftLayout = true;
             this.difficulty.Size = new System.Drawing.Size(824, 69);
             this.difficulty.TabIndex = 0;
+            this.difficulty.TickStyle = System.Windows.Forms.TickStyle.None;
             this.difficulty.Value = 400;
+            this.difficulty.Scroll += new System.EventHandler(this.Difficulty_Scroll);
             // 
             // label1
             // 
@@ -151,8 +165,9 @@
             // 
             this.options.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.options.Controls.Add(this.checkBox2);
-            this.options.Controls.Add(this.checkBox1);
+            this.options.Controls.Add(this.topMostCheckbox);
+            this.options.Controls.Add(this.gridCheckbox);
+            this.options.Controls.Add(this.wallCheckbox);
             this.options.Controls.Add(this.button1);
             this.options.Controls.Add(this.label1);
             this.options.Controls.Add(this.numericUpDown2);
@@ -165,30 +180,44 @@
             this.options.Size = new System.Drawing.Size(821, 149);
             this.options.TabIndex = 8;
             // 
-            // checkBox2
+            // topMostCheckbox
             // 
-            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.ForeColor = System.Drawing.Color.White;
-            this.checkBox2.Location = new System.Drawing.Point(674, 74);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(65, 24);
-            this.checkBox2.TabIndex = 8;
-            this.checkBox2.Text = "Grid";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
+            this.topMostCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.topMostCheckbox.AutoSize = true;
+            this.topMostCheckbox.ForeColor = System.Drawing.Color.White;
+            this.topMostCheckbox.Location = new System.Drawing.Point(571, 74);
+            this.topMostCheckbox.Name = "topMostCheckbox";
+            this.topMostCheckbox.Size = new System.Drawing.Size(97, 24);
+            this.topMostCheckbox.TabIndex = 9;
+            this.topMostCheckbox.Text = "TopMost";
+            this.topMostCheckbox.UseVisualStyleBackColor = true;
+            this.topMostCheckbox.CheckedChanged += new System.EventHandler(this.CheckBox3_CheckedChanged);
             // 
-            // checkBox1
+            // gridCheckbox
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(745, 74);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(73, 24);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Walls";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.gridCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridCheckbox.AutoSize = true;
+            this.gridCheckbox.ForeColor = System.Drawing.Color.White;
+            this.gridCheckbox.Location = new System.Drawing.Point(674, 74);
+            this.gridCheckbox.Name = "gridCheckbox";
+            this.gridCheckbox.Size = new System.Drawing.Size(65, 24);
+            this.gridCheckbox.TabIndex = 8;
+            this.gridCheckbox.Text = "Grid";
+            this.gridCheckbox.UseVisualStyleBackColor = true;
+            this.gridCheckbox.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
+            // 
+            // wallCheckbox
+            // 
+            this.wallCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.wallCheckbox.AutoSize = true;
+            this.wallCheckbox.ForeColor = System.Drawing.Color.White;
+            this.wallCheckbox.Location = new System.Drawing.Point(745, 74);
+            this.wallCheckbox.Name = "wallCheckbox";
+            this.wallCheckbox.Size = new System.Drawing.Size(73, 24);
+            this.wallCheckbox.TabIndex = 7;
+            this.wallCheckbox.Text = "Walls";
+            this.wallCheckbox.UseVisualStyleBackColor = true;
+            this.wallCheckbox.CheckedChanged += new System.EventHandler(this.WallCheckbox_CheckedChanged);
             // 
             // button2
             // 
@@ -212,26 +241,159 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GamePanel.BackColor = System.Drawing.Color.Black;
+            this.GamePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.GamePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.GamePanel.Location = new System.Drawing.Point(0, -1);
+            this.GamePanel.Location = new System.Drawing.Point(5, 38);
             this.GamePanel.Name = "GamePanel";
-            this.GamePanel.Size = new System.Drawing.Size(821, 459);
+            this.GamePanel.Size = new System.Drawing.Size(813, 414);
             this.GamePanel.TabIndex = 9;
             this.GamePanel.Visible = false;
             // 
-            // richTextBox1
+            // textArt
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.textArt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.BackColor = System.Drawing.Color.Black;
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.richTextBox1.ForeColor = System.Drawing.Color.Red;
-            this.richTextBox1.Location = new System.Drawing.Point(12, 17);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(797, 319);
-            this.richTextBox1.TabIndex = 10;
-            this.richTextBox1.Text = "";
+            this.textArt.BackColor = System.Drawing.Color.Black;
+            this.textArt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textArt.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.textArt.Font = new System.Drawing.Font("Microsoft Sans Serif", 2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.textArt.ForeColor = System.Drawing.Color.Red;
+            this.textArt.Location = new System.Drawing.Point(12, 38);
+            this.textArt.Name = "textArt";
+            this.textArt.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.textArt.Size = new System.Drawing.Size(797, 310);
+            this.textArt.TabIndex = 10;
+            this.textArt.Text = "";
+            // 
+            // score
+            // 
+            this.score.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.score.AutoSize = true;
+            this.score.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.score.ForeColor = System.Drawing.Color.Red;
+            this.score.Location = new System.Drawing.Point(94, 463);
+            this.score.Name = "score";
+            this.score.Size = new System.Drawing.Size(27, 29);
+            this.score.TabIndex = 11;
+            this.score.Text = "0";
+            this.score.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.score.Visible = false;
+            // 
+            // best_score
+            // 
+            this.best_score.AutoSize = true;
+            this.best_score.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.best_score.ForeColor = System.Drawing.Color.Red;
+            this.best_score.Location = new System.Drawing.Point(7, 3);
+            this.best_score.Name = "best_score";
+            this.best_score.Size = new System.Drawing.Size(205, 32);
+            this.best_score.TabIndex = 12;
+            this.best_score.Text = "Best Score : 0";
+            // 
+            // score_label
+            // 
+            this.score_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.score_label.AutoSize = true;
+            this.score_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.score_label.ForeColor = System.Drawing.Color.Red;
+            this.score_label.Location = new System.Drawing.Point(0, 463);
+            this.score_label.Name = "score_label";
+            this.score_label.Size = new System.Drawing.Size(96, 29);
+            this.score_label.TabIndex = 13;
+            this.score_label.Text = "Score: ";
+            this.score_label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.score_label.Visible = false;
+            // 
+            // bg_color_panel
+            // 
+            this.bg_color_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bg_color_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.bg_color_panel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bg_color_panel.Location = new System.Drawing.Point(775, 250);
+            this.bg_color_panel.Name = "bg_color_panel";
+            this.bg_color_panel.Size = new System.Drawing.Size(34, 17);
+            this.bg_color_panel.TabIndex = 14;
+            this.bg_color_panel.Tag = "bg_color";
+            this.bg_color_panel.Click += new System.EventHandler(this.Color_Choose);
+            // 
+            // player_color_panel
+            // 
+            this.player_color_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.player_color_panel.BackColor = System.Drawing.Color.LightGreen;
+            this.player_color_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.player_color_panel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.player_color_panel.Location = new System.Drawing.Point(775, 273);
+            this.player_color_panel.Name = "player_color_panel";
+            this.player_color_panel.Size = new System.Drawing.Size(34, 17);
+            this.player_color_panel.TabIndex = 15;
+            this.player_color_panel.Tag = "player_color";
+            this.player_color_panel.Click += new System.EventHandler(this.Color_Choose);
+            // 
+            // head_color_panel
+            // 
+            this.head_color_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.head_color_panel.BackColor = System.Drawing.Color.Green;
+            this.head_color_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.head_color_panel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.head_color_panel.Location = new System.Drawing.Point(775, 296);
+            this.head_color_panel.Name = "head_color_panel";
+            this.head_color_panel.Size = new System.Drawing.Size(34, 17);
+            this.head_color_panel.TabIndex = 16;
+            this.head_color_panel.Tag = "head_color";
+            this.head_color_panel.Click += new System.EventHandler(this.Color_Choose);
+            // 
+            // power_color_panel
+            // 
+            this.power_color_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.power_color_panel.BackColor = System.Drawing.Color.LightSalmon;
+            this.power_color_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.power_color_panel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.power_color_panel.Location = new System.Drawing.Point(775, 319);
+            this.power_color_panel.Name = "power_color_panel";
+            this.power_color_panel.Size = new System.Drawing.Size(34, 17);
+            this.power_color_panel.TabIndex = 17;
+            this.power_color_panel.Tag = "power_color";
+            this.power_color_panel.Click += new System.EventHandler(this.Color_Choose);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(670, 247);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 20);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Background";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(713, 273);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 20);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Player";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(670, 296);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(95, 20);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Player Head";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(688, 319);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 20);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Player Up";
             // 
             // Form1
             // 
@@ -239,10 +401,22 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(821, 499);
+            this.Controls.Add(this.GamePanel);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.power_color_panel);
+            this.Controls.Add(this.head_color_panel);
+            this.Controls.Add(this.player_color_panel);
+            this.Controls.Add(this.bg_color_panel);
+            this.Controls.Add(this.score_label);
+            this.Controls.Add(this.best_score);
+            this.Controls.Add(this.score);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.options);
-            this.Controls.Add(this.GamePanel);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.textArt);
+            this.ForeColor = System.Drawing.Color.White;
             this.KeyPreview = true;
             this.Name = "Form1";
             this.ShowIcon = false;
@@ -255,6 +429,7 @@
             this.options.ResumeLayout(false);
             this.options.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -270,9 +445,21 @@
         private System.Windows.Forms.Panel options;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel GamePanel;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.CheckBox wallCheckbox;
+        private System.Windows.Forms.CheckBox gridCheckbox;
+        private System.Windows.Forms.RichTextBox textArt;
+        private System.Windows.Forms.CheckBox topMostCheckbox;
+        private System.Windows.Forms.Label score;
+        private System.Windows.Forms.Label best_score;
+        private System.Windows.Forms.Label score_label;
+        private System.Windows.Forms.Panel bg_color_panel;
+        private System.Windows.Forms.Panel player_color_panel;
+        private System.Windows.Forms.Panel head_color_panel;
+        private System.Windows.Forms.Panel power_color_panel;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 

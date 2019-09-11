@@ -13,15 +13,19 @@ namespace SnakeS
         private int y = 0;
         private System.Drawing.Color color;
         private System.Windows.Forms.Panel panel;
+        private bool power = false;
 
-        public bool Power = false;
+        public bool Power
+        {
+            get { return power;  }
+            set { power = value; }
+        }
 
-        public Block(int ID, int Width, int Height, System.Drawing.Color Color, int X = 0, int Y = 0, bool power = false)
+        public Block(int ID, int Width, int Height, System.Drawing.Color Color, int X = 0, int Y = 0 )
         {
             id = ID;
             width = Width;
             height = Height;
-            Power = power;
             x = X;
             y = Y;
             if (Color != null)

@@ -17,7 +17,7 @@ namespace SnakeS
         }
         public void Add(System.Drawing.Color color, int width = DEFAULT_WIDTH, int height = DEFAULT_HEIGHT, int x = 0, int y = 0, bool power = false)
         {
-            Block tmp = new Block(items.Count, width, height, color, x, y, power);
+            Block tmp = new Block(items.Count, width, height, color, x, y);
             items.Add(tmp);
         }
         public Block Get(int id)
