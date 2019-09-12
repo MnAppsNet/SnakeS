@@ -135,7 +135,10 @@ namespace SnakeS
             timer.Stop();
             Player.Clear();
             foreach (Block b in blocks.Items)
+            {
                 b.Color = Settings.StageColor;
+                b.Power = false;
+            }
             xMove = 0;
             yMove = 0;
             if (scoreLabel != null) scoreLabel.Text = "0";
@@ -276,7 +279,11 @@ namespace SnakeS
                     tmp.Power = false;
                 }
             }
-            if (powerup) powerUp();
+            if (powerup)
+            {
+                powerup = false;
+                powerUp();
+            }
 
 
         }
